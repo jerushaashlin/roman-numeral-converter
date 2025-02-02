@@ -26,8 +26,17 @@ function convertToRoman(num) {
     }
     return result;
 }
-app.get('/', (req, res) => {
-    res.send('Server is running...');
+
+app.get('/romannumeral', (req, res) => {
+    const query = req.query.query;
+
+    const number = parseInt(query, 10);
+    if (isNaN(number) || number < 1 || number > 3999) {
+        return res.status(400).json({ error: "Invalid input. Please enter a number between 1 and 3999." });
+    }
+    const romanNumeral = convertToRoman(number);
+
+    res.json({ input: query, output: romanNumeral });
 });
 
 const PORT = 8080;
