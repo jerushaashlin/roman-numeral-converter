@@ -53,7 +53,7 @@ function App() {
                     )}
                     {romanNumeral && (
                         <Well marginTop="size-200" backgroundColor="positive">
-                            <Content>Result: {romanNumeral}</Content>
+                            <Content>Roman Numeral: {romanNumeral}</Content>
                         </Well>
                     )}
                 </Flex>
