@@ -12,8 +12,9 @@ function App() {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   // Added Validation Logic
-  const isValidNumber = number && !isNaN(number) && number >= 1 && number <= 3999;
-  const isInvalidInput = number.includes("-") || number === "0" || number > 3999;
+  const isNumeric = (value) => /^[0-9]+$/.test(value); // Ensures only numbers (no letters, sol. characters)
+  const isValidNumber = isNumeric(number) && number >= 1 && number <= 3999;
+  const isInvalidInput = number && (!isNumeric(number) || number.includes("-") || number === "0" || number > 3999);
 
   const convertNumber = async () => {
       if (!isValidNumber) {
@@ -43,13 +44,13 @@ function App() {
 
                   {/* Input Field with Realtime Validation */}
                   <TextField
-                      label="Enter a number (1-3999)"
+                      label="Enter a number (1-3999)" 
                       type="text" 
                       value={number}
                       onChange={setNumber}
                       width="size-3600"
-                      necessityIndicator="label"
-                      validationState={isValidNumber ? "valid" : isInvalidInput ? "invalid" : null} 
+                      necessityIndicator={false} 
+                      validationState={isValidNumber ? "valid" : isInvalidInput ? "invalid" : null} // ✅ Real-time tick/warning
                       errorMessage={isInvalidInput ? "Invalid input: Please enter a number between 1 and 3999." : ""}
                   />
 
@@ -62,7 +63,7 @@ function App() {
                   {romanNumeral && (
                       <Well marginTop="size-200">
                           <Content>
-                              <Heading level={2}>Roman Numeral: {romanNumeral}</Heading>
+                          <Heading level={2}>Roman Numeral: {romanNumeral}</Heading>
                           </Content>
                       </Well>
                   )}
