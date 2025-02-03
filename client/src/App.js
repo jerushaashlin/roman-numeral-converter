@@ -43,7 +43,12 @@ function App() {
                         onChange={setNumber}
                         width="100%"
                     />
-                    <Button variant="cta" onPress={convertNumber} isDisabled={loading}>
+                    <Button 
+                      variant="cta" 
+                      onPress={convertNumber} 
+                      isDisabled={loading}
+                      width="size-1600"
+                    >
                         {loading ? "Converting..." : "Convert"}
                     </Button>
                     {error && (
