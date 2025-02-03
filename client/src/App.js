@@ -44,10 +44,13 @@ function App() {
 
                   {/* Input Field with Realtime Validation */}
                   <TextField
-                      label="Enter a number (1-3999)" 
-                      type="text" 
+                      label="Enter a number (1-3999)"
+                      type="text"
                       value={number}
-                      onChange={setNumber}
+                      onChange={(value) => {
+                          setNumber(value);
+                          if (value === "") setRomanNumeral(""); 
+                      }}
                       width="size-3600"
                       necessityIndicator={false} 
                       validationState={isValidNumber ? "valid" : isInvalidInput ? "invalid" : null} // ✅ Real-time tick/warning
@@ -60,7 +63,7 @@ function App() {
                   </Button>
 
                   {/* Display Result */}
-                  {romanNumeral && (
+                  {romanNumeral && number !== "" && (
                       <Well marginTop="size-200">
                           <Content>
                           <Heading level={2}>Roman Numeral: {romanNumeral}</Heading>
