@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Provider, defaultTheme, lightTheme, darkTheme, TextField, Button, Heading, View, Well, Content, Flex } from "@adobe/react-spectrum";
+import { Provider, defaultTheme, TextField, Button, Heading, View, Well, Content, Flex } from "@adobe/react-spectrum";
 import axios from "axios";
 
 function App() {
@@ -8,8 +8,8 @@ function App() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // Detect system color mode
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? darkTheme : lightTheme;
+    // Detect system theme (Dark/Light Mode)
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     const convertNumber = async () => {
         if (!number || number < 1 || number > 3999) {
@@ -32,30 +32,34 @@ function App() {
     };
 
     return (
-        <Provider theme={systemTheme}>
-            <View padding="size-200" maxWidth="size-3600" margin="auto">
-                <Heading level={1}>Roman Numeral Converter</Heading>
-                <Flex direction="column" gap="size-200">
+        <Provider theme={defaultTheme} colorScheme={prefersDark ? "dark" : "light"}>
+            <View padding="size-400" maxWidth="size-4600" margin="auto">
+                <Flex direction="column" alignItems="center" gap="size-300">
+                    <Heading level={1}>Roman Numeral Converter</Heading>
+                   
+                    {/* Input Field */}
                     <TextField
                         label="Enter a number (1-3999)"
                         type="number"
                         value={number}
                         onChange={setNumber}
-                        width="100%"
+                        width="size-3600"
+                        necessityIndicator="label"
+                        validationState={error ? "invalid" : "valid"}
                     />
-                    <Button 
-                      variant="cta" 
-                      onPress={convertNumber} 
-                      isDisabled={loading}
-                      width="size-1600"
-                    >
+                   
+                    {/* Convert Button */}
+                    <Button variant="cta" onPress={convertNumber} isDisabled={loading} width="size-2400">
                         {loading ? "Converting..." : "Convert"}
                     </Button>
+                   
+                    {/* Display Result */}
                     {error && (
                         <Well marginTop="size-200" backgroundColor="negative">
-                            {error}
+                            <Content>{error}</Content>
                         </Well>
                     )}
+                   
                     {romanNumeral && (
                         <Well marginTop="size-200" backgroundColor="positive">
                             <Content>Roman Numeral: {romanNumeral}</Content>
