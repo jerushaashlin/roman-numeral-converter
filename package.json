@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "A web app to convert numbers to Roman Numerals",
   "main": "server.js",
-  "scripts": {
+"scripts": {
   "server": "nodemon server/server.js",
   "client": "npm start --prefix client",
-  "dev": "concurrently \"npm run server\" \"npm run client\""
+  "dev": "concurrently \"npm run server\" \"npm run client\"",
+  "docker-build": "docker build -t roman-numeral-converter .",
+  "docker-run": "docker run -p 8080:8080 roman-numeral-converter"
 },
   "keywords": ["roman numerals", "converter", "express", "react"],
   "author": "Jerusha Devadason",
